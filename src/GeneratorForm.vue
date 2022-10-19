@@ -191,8 +191,11 @@ export default {
         }
       })
       if (k.length === 3) {
-        k = k.sort((a, b) => word.indexOf(b) - word.indexOf(a))
-        return k.map((i) => i > 8 ? 0 : i + 1)
+        return k.sort((a, b) => {
+          const idxObA = word.indexOf(this.set[a])
+          const idxOfB = word.indexOf(this.set[b])
+          return idxObA - idxOfB
+        }).map((i) => i > 8 ? 0 : i + 1)
       }
     }
   }
