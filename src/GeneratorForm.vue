@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div style="display: flex">
+    <div class="row">
+      <div class="col">
+        <button class="button__answers" @click="getWordsParts()">Сгенерировать</button>
+      </div>
+    </div>
+    <div style="display: flex" v-if="words.length">
       <div class="result">
       <div class="phone-ring">
         <div class="phone-ring__sep"></div>
@@ -16,7 +21,7 @@
     </div>
       <div class="codes">
         <template v-for="(word, idx) in words">
-        <div v-if="getCode(word).length === 3" :key="idx">
+        <div v-if="getCode(word) && getCode(word).length === 3" :key="idx">
           {{ getCode(word).join('') }}: {{ word }}
         </div>
         </template>
@@ -95,7 +100,6 @@ export default {
   },
   mounted() {
     this.getAllParts()
-    this.getWordsParts()
   },
   methods: {
     getAllParts() {
@@ -110,10 +114,10 @@ export default {
       this.allParts = shuffle(this.allParts)
     },
     getWordsParts() {
+      this.words = [];
       [0, 1, 2, 3].forEach(() => {
         this.words.push(this.words4[randomInt(0, this.words4.length - 1)])
       })
-      console.log(this.words.join(', '))
       this.words.forEach((word) => {
         word.split('').forEach((letter) => {
           this.wordsParts.push(letter)
@@ -157,7 +161,11 @@ export default {
       })
       f = removeDuplicates(f)
       if (f.length > 10) {
-        this.getAllVars()
+        try {
+          this.getAllVars()
+        } catch(e) {
+          console.log(e)
+        }
       } else {
         if (f.length < 10) {
           for (let k = 0; k < 10 - f.length; k++) {
@@ -199,16 +207,17 @@ export default {
   border-radius: 6px;
 }
 .row {
+  width: 500px;
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  justify-content: center;
+  margin-bottom: 26px;
 }
 .row:last-child {
   margin-bottom: 0;
 }
 .col {
-  flex: 1;
-  text-align: left;
+  width: fit-content;
 }
 select {
   padding: 4px 6px;
@@ -220,7 +229,8 @@ button {
   border-radius: 4px;
 }
 .button__answers {
-  margin-left: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .phone-ring {
   width:500px;
