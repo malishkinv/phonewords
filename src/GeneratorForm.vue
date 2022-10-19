@@ -1,13 +1,20 @@
 <template>
   <div>
     <div class="row">
+      <div class="col" style="margin-right: 16px;">Цвет: </div>
       <div class="col">
-        <button class="button__answers" @click="getWordsParts()">Сгенерировать</button>
+        <input type="color" v-model="color" value="#000000" style="width:100px">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="button" style="margin-right: 16px" @click="getWordsParts()">Сгенерировать</button>
+        <button class="button__answers" @click="mode='answers'">Ответы</button>
       </div>
     </div>
     <div style="display: flex" v-if="words.length">
       <div class="result">
-      <div class="phone-ring">
+      <div class="phone-ring" :style="{'background-color': color}">
         <div class="phone-ring__sep"></div>
         <div class="phone-ring__values" v-if="set.length">
           <div
@@ -23,7 +30,7 @@
         <template v-for="(word, idx) in words">
           <div :key="idx">
             <div v-if="getCode(word) && getCode(word).length === 3">
-              {{ getCode(word).join('') }}: {{ word }}
+              {{ getCode(word).join('') }}: <span v-if="mode==='answers'">{{ word }}</span><span v-else>__________</span>
             </div>
           </div>
         </template>
@@ -90,6 +97,8 @@ const words4 = "авто ажур азот аист алоэ альт ария �
 export default {
   data() {
     return {
+      mode: 'codes',
+      color: '#000000',
       words4: words4.split(' '),
       words: [],
       alph: alphabet,
@@ -116,11 +125,11 @@ export default {
       this.allParts = shuffle(this.allParts)
     },
     getWordsParts() {
+      this.mode = 'codes'
       this.words = [];
       [0, 1, 2, 3].forEach(() => {
         this.words.push(this.words4[randomInt(0, this.words4.length - 1)])
       })
-      console.log(this.words)
       this.words.forEach((word) => {
         word.split('').forEach((letter) => {
           this.wordsParts.push(letter)
@@ -252,7 +261,6 @@ button {
   height: 500px;
   border-radius: 500px;
   position: relative;
-  background: pink;
 }
 .phone-ring:after {
   content: "";
