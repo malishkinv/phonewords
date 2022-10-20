@@ -28,9 +28,9 @@
     </div>
       <div class="codes">
         <template v-for="(word, idx) in words">
-          <div :key="idx">
+          <div :key="idx" class="codes__code">
             <div v-if="getCode(word) && getCode(word).length === 3">
-              {{ getCode(word).join('') }}: <span v-if="mode==='answers'">{{ word }}</span><span v-else>__________</span>
+              {{ getCode(word).join('') }} <span v-if="mode==='answers'">{{ word }}</span><span v-else>__________</span>
             </div>
           </div>
         </template>
@@ -265,19 +265,19 @@ button {
 .phone-ring:after {
   content: "";
   position: absolute;
-  top:100px;
-  left: 100px;
-  width: 300px;
-  height: 300px;
-  border-radius: 300px;
+  top: 135px;
+  left: 135px;
+  width: 230px;
+  height: 230px;
+  border-radius: 230px;
   background: white;
 }
 .phone-ring__sep {
   position: absolute;
   background: white;
   width: 100px;
-  height: 60px;
-  bottom: 220px;
+  height: 40px;
+  bottom: 243px;
   right: -24px;
   border-radius: 50px;
 }
@@ -298,54 +298,60 @@ button {
   position: absolute;
 }
 .phone-ring__value--val0 {
-  left: 376px;
-  top: 100px;
+  left: 369px;
+  top: 120px;
 }
 .phone-ring__value--val1 {
-  top: 30px;
-  left: 296px;
+  top: 46px;
+  left: 290px;
 }
 .phone-ring__value--val2 {
-  top: 12px;
-  left: 190px;
+  top: 30px;
+  left: 184px;
 }
 .phone-ring__value--val3 {
-  top: 50px;
-  left: 90px;
+  top: 74px;
+  left: 87px;
 }
 .phone-ring__value--val4 {
-  top: 140px;
-  left: 23px;
+  top: 169px;
+  left: 32px;
 }
 .phone-ring__value--val5 {
-  top: 250px;
-  left: 14px
+  top: 278px;
+  left: 42px;
 }
 .phone-ring__value--val6 {
-  top: 350px;
-  left: 65px;
+  top: 362px;
+  left: 107px;
 }
 .phone-ring__value--val7 {
-  top: 406px;
-  left: 166px;
+  top: 395px;
+  left: 210px;
 }
 .phone-ring__value--val8 {
-  top: 398px;
-  left: 282px;
+  top: 361px;
+  left: 314px;
 }
 .phone-ring__value--val9 {
-  top: 325px;
-  left: 375px;
+  top: 277px;
+  left: 380px;
 }
 .phone-ring__value-letters {
   text-transform: uppercase;
-  font-size: 18px;
+  font-size: 26px;
   font-weight: bold;
 }
 .phone-ring__value-num {}
 .codes {
-  margin-top: 186px;
+  margin-top: 120px;
   margin-left: 50px;
-  font-size: 24px;
+  font-size: 42px;
+}
+.codes__code {
+  margin-bottom: 8px;
+}
+.codes__code:last-child {
+  margin-bottom: 0;
 }
 </style>
